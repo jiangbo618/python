@@ -1,5 +1,5 @@
 #此程序不能在pycharm或IDLE中执行,可以在ＣＭＤ中执行
-import getpass,os #用于隐藏用户输入的字符串，常用来接收密码
+import getpass,os ,time#用于隐藏用户输入的字符串，常用来接收密码
 
 dict_pass = {'email' : ',.wawjlmm',
         'qq'    : '123qwe'   ,
@@ -41,3 +41,4 @@ if pass_flag != 0:
 else:
     idem = input('请输入你要查询的项目：')
     getuserpassword(idem)
+time.sleep(5)
