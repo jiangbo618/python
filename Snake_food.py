@@ -16,6 +16,8 @@ playSurface = pygame.display.set_mode((800,600))
 pygame.display.set_caption("贪吃蛇")
 #定义颜色
 RED = pygame.Color(255,0,0)
+PURPLE = pygame.Color(255,0,255)
+YELLO = pygame.Color(255,255,0)
 GREEN = pygame.Color(0,255,0)
 BLACK = pygame.Color(0,0,0)
 WHITE = pygame.Color(255,255,255)
@@ -108,6 +110,12 @@ changeDir = dir
 #初始化当前的分数
 score = 0
 speed_num = 0
+random1 = 0
+addscoreoffsite = 0
+two_score = (2,4,6)
+three_score =  (1,3)
+
+
 #********************************************************************************
 #********************************************************************************
 #游戏循环体的设计
@@ -163,7 +171,21 @@ while True:
         y =  random.randint(1,24)
         foodPosition = [x*20,y*20]
         food_number = 1
-        score +=1
+        if addscoreoffsite == 0:
+            score +=1
+        elif addscoreoffsite ==1:
+            score +=2
+        elif addscoreoffsite ==2:
+            score +=3
+
+        random1 = random.randint(1, 10)
+        if random1 in two_score:
+            addscoreoffsite = 1
+        elif random1 in three_score:
+            addscoreoffsite = 2
+        else:
+            addscoreoffsite = 0
+
         if score%5 ==0 and score != 0:
             speed_num += 1
     #填充背景
@@ -173,10 +195,15 @@ while True:
     for postion in snakeSegment[1:]:
         #设身为白色
         pygame.draw.rect(playSurface,WHITE,Rect(postion[0],postion[1],20,20))
-        #蛇头为灰色
+        #蛇头为绿色
         pygame.draw.rect(playSurface,GREEN,Rect(snakePosition[0],snakePosition[1],20,20))
         #食物为红色
-        pygame.draw.rect(playSurface, RED, Rect(foodPosition[0], foodPosition[1], 20, 20))
+        if  addscoreoffsite == 0:
+            pygame.draw.rect(playSurface, RED, Rect(foodPosition[0], foodPosition[1], 20, 20))
+        elif addscoreoffsite == 1:
+            pygame.draw.rect(playSurface, PURPLE, Rect(foodPosition[0], foodPosition[1], 20, 20))
+        elif addscoreoffsite == 2:
+            pygame.draw.rect(playSurface, YELLO, Rect(foodPosition[0], foodPosition[1], 20, 20))
         #设置游戏速度
         #设置游戏结束场景
         #1.超出边线
