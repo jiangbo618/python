@@ -186,8 +186,17 @@ while True:
         else:
             addscoreoffsite = 0
 
-        if score%5 ==0 and score != 0:
-            speed_num += 1
+        if score >=10  and score < 20 :
+            speed_num = 1
+        elif  score >=20  and score < 30 :
+            speed_num = 2
+        elif score >= 30 and score < 40:
+            speed_num = 3
+        elif score >= 40 and score < 50:
+            speed_num = 4
+        elif score >= 50:
+            speed_num = 5
+
     #填充背景
     playSurface.fill(BLACK)
     pygame.draw.rect(playSurface, (0, 0, 255), (600, 0, 600, 600))
