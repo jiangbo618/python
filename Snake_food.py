@@ -23,6 +23,28 @@ BLACK = pygame.Color(0,0,0)
 WHITE = pygame.Color(255,255,255)
 GREY  = pygame.Color(120,120,120)
 LIGHT = pygame.Color(220,220,220)
+
+
+
+#贪吃蛇的初始化
+snakePosition = [100,100]#定义头的位置
+#初始化蛇身体，初始身体为3段
+snakeSegment = [[100,100],[80,100],[60,100]]
+#初始化食物
+foodPosition = [300,300]
+food_number = 1
+#初始化贪吃蛇的运动方向
+dir = 'right'
+changeDir = dir
+#初始化当前的分数
+score = 0
+speed_num = 0
+random1 = 0
+addscoreoffsite = 0
+two_score = (2,4,6)
+three_score =  (1,3)
+colour = WHITE
+
 #定义游戏结束函数
 def gameover(playSurface,score):
     #显示游戏结束
@@ -78,7 +100,7 @@ def speed_contrl(speed_num):#每得5分速度提升
         fpsClock.tick(30)
         pygame.display.flip()
         speed_str = 'Devil'
-
+# ********************************************************************************************************
     Speed_font = pygame.font.SysFont('arial.ttf', 30)
     # 创建分数的颜色以及显示内容
     Speed_surf = Speed_font.render('Speed:  ' + speed_str, True, RED)
@@ -87,7 +109,7 @@ def speed_contrl(speed_num):#每得5分速度提升
     Speed_rect.midtop = (680,200)
     # 更新分数文本的显示
     playSurface.blit(Speed_surf, Speed_rect)
-
+# ********************************************************************************************************
     score_font = pygame.font.SysFont('arial.ttf', 30)
     # 创建分数的颜色以及显示内容
     score_surf = score_font.render('Score:  ' + str(score), True, WHITE)
@@ -96,26 +118,17 @@ def speed_contrl(speed_num):#每得5分速度提升
     score_rect.midtop = (660,300)
     # 更新分数文本的显示
     playSurface.blit(score_surf, score_rect)
+#********************************************************************************************************
+    High_score_font = pygame.font.SysFont('arial.ttf', 30)
+    # 创建分数的颜色以及显示内容
+    High_score_surf = High_score_font.render('Current Block:  ' + str(addscoreoffsite +1 ), True, colour)
+    # 设置分数的位置
+    High_score_rect = High_score_surf.get_rect()
+    High_score_rect.midtop = (700, 400)
+    # 更新分数文本的显示
+    playSurface.blit(High_score_surf, High_score_rect)
+# ********************************************************************************************************
     pygame.display.flip()
-#贪吃蛇的初始化
-snakePosition = [100,100]#定义头的位置
-#初始化蛇身体，初始身体为3段
-snakeSegment = [[100,100],[80,100],[60,100]]
-#初始化食物
-foodPosition = [300,300]
-food_number = 1
-#初始化贪吃蛇的运动方向
-dir = 'right'
-changeDir = dir
-#初始化当前的分数
-score = 0
-speed_num = 0
-random1 = 0
-addscoreoffsite = 0
-two_score = (2,4,6)
-three_score =  (1,3)
-
-
 #********************************************************************************
 #********************************************************************************
 #游戏循环体的设计
@@ -208,10 +221,13 @@ while True:
         pygame.draw.rect(playSurface,GREEN,Rect(snakePosition[0],snakePosition[1],20,20))
         #食物为红色
         if  addscoreoffsite == 0:
+            colour = RED
             pygame.draw.rect(playSurface, RED, Rect(foodPosition[0], foodPosition[1], 20, 20))
         elif addscoreoffsite == 1:
+            colour = PURPLE
             pygame.draw.rect(playSurface, PURPLE, Rect(foodPosition[0], foodPosition[1], 20, 20))
         elif addscoreoffsite == 2:
+            colour = YELLO
             pygame.draw.rect(playSurface, YELLO, Rect(foodPosition[0], foodPosition[1], 20, 20))
         #设置游戏速度
         #设置游戏结束场景
