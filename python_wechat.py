@@ -30,7 +30,7 @@ def get_agendar(friend):
 
 if __name__ == '__main__':
  #生日部分
-    brithday_file = open('生日记录.txt', 'r', encoding="utf-8")
+    brithday_file = open('brithday.txt', 'r', encoding="utf-8")
     print(brithday_file)
     lines = len(brithday_file.readlines())  # 读取完后光标会移动到最后
     if lines <= 2:
