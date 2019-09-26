@@ -4,33 +4,34 @@
 # @Time        :2019/9/23 10:13
 # @Author      :Jiangbo Lin
 # @Filename    :python_wechat.py 
-# @Description :由于经常忘记家人的生日，所以利用itchat 以及mail服务
+# @Description :
+#由于经常忘记家人的生日，所以利用itchat 以及mail服务
 #发送提醒消息,用户需要自行修改收法邮件地址以及微信接收人的昵称，以及SMT服务的授权码
+#因为getpass无法在pycharm中使用，如果想使用隐藏输入，请打开109行，然后在命令行中执行此程序。
 import itchat
 import smtplib
 import time
+import getpass
 from email.mime.text import MIMEText
 from email.header import Header
 smtpserver = "smtp.qq.com"
 smtpport = 465  #或者587
-
-#可自行修改此处******************
-mess_get_name = "xxxxx" #微信收到提醒的名字
-from_mail = "xxxxx@qq.com"#发送端邮件
-to_mail = ["xxxxxx@xx.com"]#接收端邮件
-pw_code = "xxxxxxxxxxx"#用户修改授权码
-#可自行修改此处*********************
-
+from_mail = "xxxxxx@qq.com"
+to_mail = ["xxxx@xxx.com"]
+pw_code = "xxxx"#用户修改授权码
+admin_pw = "xxxx"#
 send_time = 5#时间到等待5s 获取列表信息
 man_nickname = []
 women_nickname = []
 other_nickname = []
-timereminder = [ "09:00:00" ,
-                 "12:00:00" ,
-                 "16:00:00" ,
-                 "18:00:00" ,
-                 "11:28:00",
-                 ]
+timereminder = {"09:00:00",
+                "12:00:00",
+                "15:00:00",
+                "16:00:00",
+                "17:00:00",
+                "18:00:00",
+                "22:00:00"
+                }
 def get_friends():
     friends = itchat.get_friends(update=True)[1:]
     return friends
@@ -56,7 +57,7 @@ def wechat_send(message1):
 
 def  wechat_sendtoroom(context):
     itchat.get_chatrooms(update=True)
-    iRoom = itchat.search_chatrooms("xxxxxx")
+    iRoom = itchat.search_chatrooms("相亲相爱其乐融融")
     if len(iRoom) == 0:
         print("没有找到群")
     else:
@@ -106,7 +107,8 @@ if __name__ == '__main__':
     try_time = 2
     while True:
         admin_pw = input("请输入管理员密码：")
-        if admin_pw == 'altran':
+        #admin_pw = getpass.getpass("请输入管理员密码：")
+        if admin_pw == admin_pw:
             print("输入正确")
             break
         else:
@@ -114,7 +116,8 @@ if __name__ == '__main__':
                 print("密码输入错误，您还有%d 机会" % try_time)
                 try_time -= 1
             else:
-                print("连续3次错误，退出")
+                print("连续3次错误，3秒后自动退出!!!")
+                time.sleep(3)
                 exit()
     #itchat.auto_login(hotReload=True)#微信登陆
     brithday_file = open('brithday.txt', 'r', encoding="utf-8")#需要加txt的编码格式 否则不识别中文
