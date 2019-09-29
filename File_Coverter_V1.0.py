@@ -23,11 +23,13 @@ def con_file(root,name):
             r_file.close()
             w_file.close()
             break
-        hex_str = str(binascii.b2a_hex(temp))[2:-1]#b' 去除
-        file = "0x" + hex_str
+        #print(hex(ord(temp)^255))
+        #hex_str = str(binascii.b2a_hex(temp))[2:-1]#b' 去除
+        #file = "0x" + hex_str
         #print("0转换前："+file)
         #print("1转换后："+ str(hex(int(file, 16) ^ 255)))
-        w_file.write(bytes([int(file, 16) ^ 255]))
+        #w_file.write(bytes([int(file, 16) ^ 255]))
+        w_file.write(bytes([ord(temp)^255]))#经整数写入
 if __name__ == '__main__':
     index = 0
     while True:
