@@ -50,11 +50,12 @@ if __name__ == '__main__':
                                 #print(root)
                     #con_file(os.path.join(root, name),root,name)
                     print(str(index) +" " + name )
+                    songname  = name
                     #name_list.write(name + "\n")
                     test = name.split(".")
                     #test = test[0]
                     code_list.write("#define "+ test[0] +" " +str(index)+"\n")
-                    name_list.write("#define " + test[0] + " " + str(index) + "\n")
+                    name_list.write(songname + "\n")
                     index += 1
                     #print("{0}转换完成".format(os.path.join(root, name)))
     name_list.close()
