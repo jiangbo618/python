@@ -8,12 +8,65 @@
 
 import os,sys,re,time
 import binascii
-import getpass
-pw_123 = "gwz"
+#import getpass
+import  tkinter  as tk
+pw_123 = "123"
+pw_user = 'gwz'
 path_list = {}
 try_time = 2
 data_format = 0
 bstr = []
+var = None
+blackground = None
+def login_function():
+# 第1步，实例化object，建立窗口window
+    global var
+    global blackground
+    window = tk.Tk()
+    var = tk.StringVar()
+# 第2步，给窗口的可视化起名字
+    window.title('文件加密器V1.0')
+# 第3步，设定窗口的大小(长 * 宽)
+    window.geometry('500x300')  # 这里的乘是小x
+# 第4步，创建Lable
+    tk.Label(window,text = "User name:").place(x = 60,y=100)
+    tk.Label(window,text = "PassWord:").place(x = 60,y=140)
+    #blackground = 'red'
+    messageL= tk.Label(window, textvariable=var, bg=None)
+    messageL.place(x=160, y=40)
+# 第5步，在图形界面上设定输入框控件entry并放置控件
+    var_username = tk.StringVar()
+    user_name = tk.Entry(window, textvariable = var_username,show=None, font=('Arial', 14))  # 显示成密文形式
+    user_name.place(x= 160,y=100)
+    var_userpassword = tk.StringVar()
+    password = tk.Entry(window, textvariable = var_userpassword,show='*', font=('Arial', 14))  # 显示成明文形式
+    password.place(x= 160,y=140)
+    #e1.pack()
+    #e2.pack()
+# 第6步，在图形界面上设定button
+    useryes = tk.Button(window,text = 'Yes',command=lambda :user_check(messageL,var_username.get(),var_userpassword.get()))
+    useryes.place(x= 160,y=200)
+    userexit = tk.Button(window,text = 'Exit',command= user_exit)
+    userexit.place(x= 360,y=200)
+    window.mainloop()
+def user_check(messageL,username,password):
+    global try_time
+    # admin_pw = input("请输入管理员密码：")
+    # admin_pw = getpass.getpass("请输入密码：")
+    if username != pw_user or password != pw_123 :
+        if try_time != 0:
+            var.set(("用户名或密码输入错误,您还有%d次尝试机会！") % try_time)
+            messageL["fg"] = "red"
+            try_time -= 1
+        else:
+            exit()
+    else:
+        var.set("pass!!!")
+
+def user_exit():
+    time.sleep(0.1)
+    exit()
+
 
 
 def mkdir(path):
@@ -138,21 +191,10 @@ def con_file(root,name,sec_data,data):
         #w_file.write(bytes([int(file, 16) ^ 255]))
         #w_file.write(bytes([ord(temp)^sec_data]))#经整数写入
 if __name__ == '__main__':
+
+    login_function()
+
     index = 0
-    while True:
-        #admin_pw = input("请输入管理员密码：")
-        admin_pw = getpass.getpass("请输入密码：")
-        if admin_pw == pw_123:
-            #print("输入正确")
-            break
-        else:
-            if try_time !=0:
-                print("密码输入错误，您还有%d 机会" % try_time)
-                try_time -= 1
-            else:
-                print("连续3次错误，2秒后自动退出!!!")
-                time.sleep(2)
-                exit()
     data = get_data_format()
     #print(data)
     sec_data = get_securty_data()
