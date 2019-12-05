@@ -7,12 +7,12 @@
 # @Description :选择任意格式的二级制文件，往文件任意位置插入任意个数的随机数，在使用工作的目录产生
 #相应的信息文件。：
 
-import os,sys,re,time
+import os,time
 import random
 import struct
-import  tkinter  as tk
+#import  tkinter  as tk
 random_list = []
-from tkinter.filedialog import askopenfilename
+#from tkinter.filedialog import askopenfilename
 def selectpath():
     path_ = askopenfilename()
     path.set(path_)
@@ -99,6 +99,7 @@ if __name__ == '__main__':
             inf_file.write(str(index) + ":" + hex(i) + " " + str(i)+'\n')
             index += 1
         inf_file.close()
+        time.sleep(3)
 
 '''
     window = tk.Tk()
