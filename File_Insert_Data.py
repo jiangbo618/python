@@ -45,7 +45,7 @@ def con_files(root,name,data_position,random_list):
                 byte_index += 1
 
 if __name__ == '__main__':
-    print("二进制文件插入工具V1.0.  作者：jiangbo lin")
+    print("二进制文件插入工具V1.1.  作者：jiangbo lin")
     fileformat = input("请输入需要处理的文件格式,例如(bin):")
     fileformat = "."+ fileformat
     while True:
@@ -58,6 +58,7 @@ if __name__ == '__main__':
     while True:
         random_num = input("请输入随机数个数:")
         if random_num.isdecimal():
+            '''
             index = 0
             while index < int(random_num):
                 random_list.append(random.randint(0,255))
@@ -66,6 +67,7 @@ if __name__ == '__main__':
             for i in random_list:
                 print(str(index) +":"+ hex(i) +" " + str(i) )
                 index += 1
+            '''
             break
         else:
             print("输入的随机个数非纯数字，请重新输入")
@@ -79,11 +81,21 @@ if __name__ == '__main__':
                 if int(data_position) >= lenth:
                     print("错误："+ name +"文件大小为"+str(lenth)+"byte,插入位置第"+str(data_position)+"Byte超过了此文件大小，此文件插入失败!!")
                 else:
+                    index = 0
+                    random_list.clear()
+                    while index < int(random_num):
+                        random_list.append(random.randint(0, 255))#0~0xff
+                        index += 1
+                    index = 0
+                    for i in random_list:
+                        #print(str(index) + ":" + hex(i) + " " + str(i))
+                        index += 1
                     con_files(root, name, data_position, random_list)
                 filenumber += 1
     if filenumber ==0:
         print("!!!!!!!未找到*" + fileformat + "的相关文件，转档失败!!!!!!!")
     else:
+        '''
         inf_file = open(os.path.join(root, "Information_file"), 'w+')
         messages = "(1)处理文件格式为:*" + str(fileformat)+'\n'
         inf_file.write(messages)
@@ -99,6 +111,7 @@ if __name__ == '__main__':
             inf_file.write(str(index) + ":" + hex(i) + " " + str(i)+'\n')
             index += 1
         inf_file.close()
+        '''
         time.sleep(3)
 
 '''
